@@ -9,6 +9,8 @@ class Sandbox extends StatefulWidget {
 }
 
 class _SandboxState extends State<Sandbox> {
+  final _formFieldKey = GlobalKey<FormFieldState>();
+
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
     padding: const EdgeInsets.all(20),
@@ -53,14 +55,15 @@ class _SandboxState extends State<Sandbox> {
               FButton(variant: .destructive, onPress: () {}, child: Text('Destructive')),
             ],
           ),
-          FTextFormField(
-            label: const Text('TextFormField'),
-            maxLength: 6,
-            keyboardType: .number,
-            textInputAction: .send,
-            onTapOutside: (event) {
-              FocusManager.instance.primaryFocus?.unfocus();
+          FTextFormField.email(
+            formFieldKey: _formFieldKey,
+            validator: (value) => (value?.contains('@') ?? false) ? null : 'Please enter a valid email.',
+          ),
+          FButton(
+            onPress: () {
+              _formFieldKey.currentState!.validate();
             },
+            child: Text('Validate'),
           ),
         ],
       ),

@@ -378,8 +378,12 @@ class FTextFormField extends StatelessWidget with FFormFieldProperties<String> {
   @override
   final Widget Function(BuildContext context, String message) errorBuilder;
 
+  ///
+  final Key? formFieldKey;
+
   /// Creates a [FTextFormField].
   const FTextFormField({
+    this.formFieldKey,
     this.control = const .managed(),
     this.size = .md,
     this.style = const .context(),
@@ -452,6 +456,7 @@ class FTextFormField extends StatelessWidget with FFormFieldProperties<String> {
 
   /// Creates a [FTextFormField] configured for emails.
   const FTextFormField.email({
+    this.formFieldKey,
     this.control = const .managed(),
     this.size = .md,
     this.style = const .context(),
@@ -528,6 +533,7 @@ class FTextFormField extends StatelessWidget with FFormFieldProperties<String> {
   /// time a new line is added. To limit the maximum height of the text field and make it scrollable, consider setting
   /// [maxLines].
   const FTextFormField.multiline({
+    this.formFieldKey,
     this.control = const .managed(),
     this.size = .md,
     this.style = const .context(),
@@ -602,6 +608,7 @@ class FTextFormField extends StatelessWidget with FFormFieldProperties<String> {
   Widget build(BuildContext context) => TextFieldControl(
     control: control,
     builder: (context, controller, _) => FormInput(
+      key: formFieldKey,
       controller: controller,
       onSaved: onSaved,
       onReset: onReset,
@@ -759,6 +766,7 @@ class FTextFormField extends StatelessWidget with FFormFieldProperties<String> {
       ..add(ObjectFlagProperty.has('validator', validator))
       ..add(EnumProperty('autovalidateMode', autovalidateMode))
       ..add(StringProperty('forceErrorText', forceErrorText))
-      ..add(ObjectFlagProperty.has('errorBuilder', errorBuilder));
+      ..add(ObjectFlagProperty.has('errorBuilder', errorBuilder))
+      ..add(DiagnosticsProperty<Key?>('formFieldKey', formFieldKey));
   }
 }
