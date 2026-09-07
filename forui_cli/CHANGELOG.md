@@ -1,3 +1,7 @@
+## 0.26.1
+* Fix `forui theme create` generating incorrect `part of` directives on Windows.
+
+
 ## 0.26.0
 * Add Phosphor icon library option.
 
